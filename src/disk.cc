@@ -117,7 +117,6 @@ int DiskManager::closeDisk (int diskId) {
 
 int DiskManager::readBlock (int diskId, int blockNum, void *block) {
 	int offset;
-	ssize_t bytes = 0;
 	auto disk_read = findDisk(diskId);
 	fstream &diskStream = disk_read->getDiskStream();
 
@@ -134,7 +133,6 @@ int DiskManager::readBlock (int diskId, int blockNum, void *block) {
 
 int DiskManager::writeBlock (int diskId, int blockNum, void *block) {
 	int offset;
-	ssize_t bytes = 0;
 	auto disk_read = findDisk(diskId);
 	fstream &diskStream = disk_read->getDiskStream();
 
