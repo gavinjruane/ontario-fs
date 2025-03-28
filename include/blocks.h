@@ -3,12 +3,25 @@
 
 #define WRITABLE 248
 
+#define BLK_SUPER   1
+#define BLK_INODE   2
+#define BLK_EXTENT  3
+#define BLK_FREE    4
+
+#define TYPE_DIR    0
+#define TYPE_FILE   1
+
+#define RW	    0
+#define RO	    1
+
+#define NAME_SIZE   8
+
 #pragma pack(push, 1)
 class Block {
-	private:
+	protected:
 		char type;
-		char magicNumber;
-		char empty[2];
+		char magicNumber = 0x44;
+		char empty[2] = { 0, 0 };
 		int nextFreeBlock; /* also first free block */
 
 	public:
@@ -20,6 +33,15 @@ class Block {
 
 #pragma pack(push, 1)
 class Inode : public Block {
+	public:
+		Inode ();
+//		~Inode ();
+
+		string getName ();
+		void setName (const string& _name);
+		string getParentDir ();
+		void setParentDir (const string& _parentDir);
+
 	private:
 		int inode;
 		char dirFile;

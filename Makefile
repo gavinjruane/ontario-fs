@@ -30,8 +30,8 @@ clean:
 	rm -f $(LIBS)
 	rm -f *.dsk
 
-diskDriver: libDisk.a $(SRC_DIR)/main.o $(SRC_DIR)/filesystem.o
-	$(LD) $(LDFLAGS) -o diskDriver $(SRC_DIR)/filesystem.o $(SRC_DIR)/main.o -L . -lDisk
+diskDriver: libDisk.a $(SRC_DIR)/main.o $(SRC_DIR)/filesystem.o $(SRC_DIR)/inode.o
+	$(LD) $(LDFLAGS) -o diskDriver $(SRC_DIR)/filesystem.o $(SRC_DIR)/main.o $(SRC_DIR)/inode.o -L . -lDisk
 
 diskTest: libDisk.a $(SRC_DIR)/diskTest.o
 	$(LD) $(LDFLAGS) -o diskTest $(SRC_DIR)/diskTest.o -L . -lDisk
@@ -52,3 +52,7 @@ $(SRC_DIR)/main.o: $(SRC_DIR)/main.cc $(INCLUDE_DIR)/disk.h $(INCLUDE_DIR)/block
 
 $(SRC_DIR)/filesystem.o: $(SRC_DIR)/filesystem.cc $(INCLUDE_DIR)/disk.h $(INCLUDE_DIR)/blocks.h
 	$(CC) $(CFLAGS) -c $(SRC_DIR)/filesystem.cc -o $(SRC_DIR)/filesystem.o
+
+$(SRC_DIR)/inode.o: $(SRC_DIR)/inode.cc $(INCLUDE_DIR)/disk.h $(INCLUDE_DIR)/blocks.h
+	$(CC) $(CFLAGS) -c $(SRC_DIR)/inode.cc -o $(SRC_DIR)/inode.o
+
